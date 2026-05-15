@@ -1,0 +1,41 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.envrc
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables 
+.env
+*.env
+
+# Logs
+*.log
+
+# SQLite / local DB files
+*.db
+*.sqlite3
+
+# ChromaDB
+chroma/
+db/chroma/
+*.parquet
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.temp
