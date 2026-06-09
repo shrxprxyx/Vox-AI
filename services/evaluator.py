@@ -1,5 +1,5 @@
 import json
-from services.llm import ask_ollama
+from services.llm import ask_llm
 
 def evaluate_answer(question: str, answer: str, domain: str) -> dict:
     prompt = f"""You are evaluating a {domain} interview answer.
@@ -16,10 +16,9 @@ Respond ONLY in this JSON format, no extra text:
   "overall": <1-10>,
   "feedback": "<2-3 sentence feedback>"
 }}"""
-    raw = ask_ollama(prompt)
+    raw = ask_llm(prompt)
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        # strip any markdown fences if llama wraps in ```json
         clean = raw.strip().removeprefix("```json").removesuffix("```").strip()
         return json.loads(clean)
