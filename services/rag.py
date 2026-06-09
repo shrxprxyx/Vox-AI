@@ -1,15 +1,8 @@
 from sentence_transformers import SentenceTransformer
-from db.chroma import get_collection
+from db.qdrant import retrieve_vectors
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
 def retrieve_context(query: str, session_id: str, top_k: int = 3) -> str:
-    collection = get_collection(session_id)
-    query_embedding = model.encode([query]).tolist()
-
-    results = collection.query(
-        query_embeddings=query_embedding,
-        n_results=top_k
-    )
-    docs = results["documents"][0]
-    return "\n".join(docs)
+    query_embedding = model.encode([query]).tolist()[0]
+    return retrieve_vectors(session_id, query_embedding, top_k)

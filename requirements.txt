@@ -3,9 +3,15 @@ uvicorn
 python-multipart
 langchain
 langchain-community
+langchain-text-splitters
 chromadb
 sentence-transformers
 pdfplumber
 python-docx
 faster-whisper
 httpx
+groq
+sqlalchemy
+psycopg2-binary
+qdrant-client
+python-dotenv
