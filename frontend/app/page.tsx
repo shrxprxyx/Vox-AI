@@ -47,18 +47,6 @@ export default async function LandingPage() {
 
       {/* Hero */}
       <section className="flex flex-col items-center justify-center flex-1 text-center px-6 py-24 gap-8">
-        <div
-          className="text-xs font-semibold uppercase tracking-widest px-4 py-1 rounded-full"
-          style={{
-            background: "#A78BFA22",
-            border: "1px solid #A78BFA44",
-            color: "#A78BFA",
-            fontFamily: "'Inter', sans-serif",
-          }}
-        >
-          AI-Powered Interview Prep
-        </div>
-
         <h1
           className="text-5xl sm:text-6xl font-bold leading-tight max-w-3xl"
           style={{ fontFamily: "'Sora', sans-serif", color: "#F5F5F5" }}
