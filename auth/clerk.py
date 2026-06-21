@@ -3,11 +3,12 @@ import httpx
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, jwk
-from jose.utils import base64url_decode
+from functools import lru_cache
 
 bearer = HTTPBearer()
-CLERK_JWKS_URL = os.environ.get("CLERK_JWKS_URL")  # add to .env
+CLERK_JWKS_URL = os.environ.get("CLERK_JWKS_URL")
 
+@lru_cache(maxsize=1)
 def get_jwks():
     res = httpx.get(CLERK_JWKS_URL)
     return res.json()

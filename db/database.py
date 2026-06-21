@@ -3,9 +3,6 @@ from sqlalchemy import create_engine, Column, String, Integer, Text, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
-from dotenv import load_dotenv
-
-load_dotenv()
 
 DATABASE_URL = os.environ.get("SUPABASE_URL")
 
@@ -16,6 +13,7 @@ Base = declarative_base()
 class InterviewSession(Base):
     __tablename__ = "sessions"
     id = Column(String, primary_key=True)
+    user_id = Column(String)                # Clerk user ID
     domain = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
 
