@@ -29,9 +29,9 @@ def store_vectors(session_id: str, chunks: list[str], embeddings: list[list[floa
     client.upsert(collection_name=session_id, points=points)
 
 def retrieve_vectors(session_id: str, query_embedding: list[float], top_k: int = 3) -> str:
-    results = client.search(
+    results = client.query_points(
         collection_name=session_id,
-        query_vector=query_embedding,
+        query=query_embedding,
         limit=top_k
-    )
+    ).points
     return "\n".join(r.payload["text"] for r in results)
