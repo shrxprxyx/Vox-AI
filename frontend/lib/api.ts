@@ -55,3 +55,14 @@ export async function transcribeAudio(
   });
   return res.data;
 }
+
+export async function getSessions(
+  userId: string,
+  getToken: () => Promise<string | null>
+) {
+  const token = await getToken();
+  const res = await axios.get(`${API}/interview/sessions/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+}

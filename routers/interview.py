@@ -71,3 +71,42 @@ def submit_answer(req: AnswerRequest, user=Depends(verify_clerk_token)):
         "evaluation": evaluation,
         "next_question": next_question        
     }
+
+@router.get("/sessions/{user_id}")
+def get_sessions(user_id: str, user=Depends(verify_clerk_token)):
+    db = SessionLocal()
+    sessions = db.query(InterviewSession).filter(
+        InterviewSession.user_id == user_id
+    ).order_by(InterviewSession.created_at.desc()).all()
+    
+    result = []
+    for s in sessions:
+        results = db.query(InterviewResult).filter(
+            InterviewResult.session_id == s.id
+        ).all()
+        avg_score = (
+            sum(r.overall for r in results) / len(results)
+            if results else 0
+        )
+        result.append({
+            "session_id": s.id,
+            "domain": s.domain,
+            "created_at": str(s.created_at),
+            "question_count": len(results),
+            "avg_score": round(avg_score, 1),
+            "results": [
+                {
+                    "question": r.question,
+                    "answer": r.answer,
+                    "correctness": r.correctness,
+                    "communication": r.communication,
+                    "technical_depth": r.technical_depth,
+                    "confidence": r.confidence,
+                    "overall": r.overall,
+                    "feedback": r.feedback,
+                }
+                for r in results
+            ]
+        })
+    db.close()
+    return result
