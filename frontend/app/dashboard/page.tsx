@@ -103,9 +103,6 @@ export default function DashboardPage() {
           >
             Past Sessions
           </h1>
-          <p className="text-sm text-[#555555]" style={{ fontFamily: "'Inter', sans-serif" }}>
-            {sessions.length} interview{sessions.length !== 1 ? "s" : ""} completed
-          </p>
         </div>
 
         {/* Loading */}
